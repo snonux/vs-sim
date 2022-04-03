@@ -385,7 +385,7 @@ abstract public class VSAbstractProtocol extends VSAbstractEvent {
      * @see events.VSAbstractEvent#createShortname()()
      */
     protected String createShortname(String savedShortname) {
-	return savedShortname;
+        return savedShortname;
     }
 
     /* (non-Javadoc)
@@ -397,15 +397,15 @@ abstract public class VSAbstractProtocol extends VSAbstractEvent {
 
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append(prefs.getString("lang.en.protocol"));
+        buffer.append(prefs.getString("lang.protocol"));
         buffer.append(": ");
         buffer.append(getShortname());
         buffer.append(" ");
 
         if (currentContextIsServer)
-            buffer.append(prefs.getString("lang.en.server"));
+            buffer.append(prefs.getString("lang.server"));
         else
-            buffer.append(prefs.getString("lang.en.client"));
+            buffer.append(prefs.getString("lang.client"));
 
         return buffer.toString();
     }

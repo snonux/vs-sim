@@ -244,7 +244,7 @@ public abstract class VSAbstractEditor implements ActionListener {
         boolean expertMode = prefs.getBoolean("sim.mode.expert");
 
         for (String elem : set) {
-            if (!elem.startsWith("lang.en.") && !elem.startsWith("keyevent.")) {
+            if (!elem.startsWith("lang.") && !elem.startsWith("keyevent.")) {
                 if (expertMode)
                     filtered.add(elem);
                 else if (!elem.startsWith("col.") && (!elem.startsWith("div.")))
@@ -266,7 +266,7 @@ public abstract class VSAbstractEditor implements ActionListener {
         addToButtonPanelFront(buttonPanel);
 
         JButton resetButton = new JButton(
-            prefs.getString("lang.en.reset"));
+            prefs.getString("lang.reset"));
         resetButton.setMnemonic(prefs.getInteger("keyevent.reset"));
         resetButton.addActionListener(this);
         buttonPanel.add(resetButton);
@@ -401,7 +401,7 @@ public abstract class VSAbstractEditor implements ActionListener {
      */
     protected VS3Tupel<String,Component,JCheckBox> createBooleanComponent(
         String fullKey, String key, VSPrefs prefsToEdit) {
-        final String activated = prefs.getString("lang.en.activated");
+        final String activated = prefs.getString("lang.activated");
         String descr = prefs.getDescription(fullKey);
         if (descr == null)
             descr = prefsToEdit.getDescription(fullKey);
@@ -499,9 +499,9 @@ public abstract class VSAbstractEditor implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 JFrame parentFrame = getFrame();
                 JFrame frame = new VSFrame(
-                    prefs.getString("lang.en.name") + " - " +
+                    prefs.getString("lang.name") + " - " +
                     prefs.getString(
-                        "lang.en.colorchooser"),parentFrame);
+                        "lang.colorchooser"),parentFrame);
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                 JComponent colorChooserPane = new VSColorChooser(prefs,
@@ -639,7 +639,7 @@ public abstract class VSAbstractEditor implements ActionListener {
             if (key.startsWith("sim.")) {
                 if (!flag) {
                     flag = true;
-                    addSeparator(prefs.getString("lang.en.prefs.simulator"));
+                    addSeparator(prefs.getString("lang.prefs.simulator"));
                 }
                 addVariable(labels.get(fullKey), components.get(fullKey),
                             prefsToEdit);
@@ -653,10 +653,10 @@ public abstract class VSAbstractEditor implements ActionListener {
                 if (!flag) {
                     flag = true;
                     if (this instanceof VSProcessEditor)
-                        addSeparator(prefs.getString("lang.en.prefs.process"));
+                        addSeparator(prefs.getString("lang.prefs.process"));
                     else
                         addSeparator(prefs.getString(
-                                         "lang.en.prefs.process.defaults"));
+                                         "lang.prefs.process.defaults"));
                 }
                 addVariable(labels.get(fullKey), components.get(fullKey),
                             prefsToEdit);
@@ -671,10 +671,10 @@ public abstract class VSAbstractEditor implements ActionListener {
                     flag = true;
                     if (this instanceof VSProcessEditor)
                         addSeparator(prefs.getString(
-                                         "lang.en.prefs.message"));
+                                         "lang.prefs.message"));
                     else
                         addSeparator(prefs.getString(
-                                         "lang.en.prefs.message.defaults"));
+                                         "lang.prefs.message.defaults"));
                 }
                 addVariable(labels.get(fullKey), components.get(fullKey),
                             prefsToEdit);
@@ -687,7 +687,7 @@ public abstract class VSAbstractEditor implements ActionListener {
             if (key.startsWith("col.")) {
                 if (!flag) {
                     flag = true;
-                    addSeparator(prefs.getString("lang.en.prefs.color"));
+                    addSeparator(prefs.getString("lang.prefs.color"));
                 }
                 addVariable(labels.get(fullKey), components.get(fullKey),
                             prefsToEdit);
@@ -700,7 +700,7 @@ public abstract class VSAbstractEditor implements ActionListener {
             if (key.startsWith("div.")) {
                 if (!flag) {
                     flag = true;
-                    addSeparator(prefs.getString("lang.en.prefs.diverse"));
+                    addSeparator(prefs.getString("lang.prefs.diverse"));
                 }
                 addVariable(labels.get(fullKey), components.get(fullKey),
                             prefsToEdit);
@@ -1019,10 +1019,10 @@ public abstract class VSAbstractEditor implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
 
-        if (actionCommand.equals(prefs.getString("lang.en.takeover"))) {
+        if (actionCommand.equals(prefs.getString("lang.takeover"))) {
             savePrefs();
 
-        } else if (actionCommand.equals(prefs.getString("lang.en.reset"))) {
+        } else if (actionCommand.equals(prefs.getString("lang.reset"))) {
             resetPrefs();
         }
     }

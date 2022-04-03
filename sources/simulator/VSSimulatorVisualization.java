@@ -48,7 +48,7 @@ import serialize.VSSerialize;
  * @author Paul C. Buetow
  */
 public class VSSimulatorVisualization extends Canvas
-            implements Runnable, VSSerializable {
+    implements Runnable, VSSerializable {
 
     /** The serial version uid */
     private static final long serialVersionUID = 1L;
@@ -236,9 +236,6 @@ public class VSSimulatorVisualization extends Canvas
      * @author Paul C. Buetow
      */
     public class VSMessageLine {
-        /** The serial version uid */
-        private static final long serialVersionUID = 1L;
-
         /** The receiver process. */
         private VSInternalProcess receiverProcess;
 
@@ -311,7 +308,7 @@ public class VSSimulatorVisualization extends Canvas
          * @param task the task
          */
         public VSMessageLine(VSInternalProcess receiverProcess, long sendTime,
-                             long recvTime, long outageTime, int senderNum ,
+                             long recvTime, long outageTime, int senderNum,
                              int receiverNum, VSTask task) {
             this.receiverProcess = receiverProcess;
             this.sendTime = sendTime;
@@ -501,7 +498,6 @@ public class VSSimulatorVisualization extends Canvas
             this.processes = new ArrayList<VSInternalProcess>();
 
             numProcesses = prefs.getInteger("sim.process.num");
-
             for (int i = 0; i < numProcesses; ++i)
                 processes.add(createProcess(i));
         }
@@ -520,11 +516,11 @@ public class VSSimulatorVisualization extends Canvas
                         public void actionPerformed(ActionEvent ae) {
                             String command = ae.getActionCommand();
                             if (command.equals(
-                            finalPrefs.getString("lang.en.process.edit"))) {
+                                        finalPrefs.getString("lang.process.edit"))) {
                                 editProcess(process);
 
                             } else if (command.equals(
-                            finalPrefs.getString("lang.en.process.crash"))) {
+                                           finalPrefs.getString("lang.process.crash"))) {
                                 VSAbstractEvent event =
                                     new VSProcessCrashEvent();
 
@@ -534,7 +530,7 @@ public class VSSimulatorVisualization extends Canvas
                                                         VSTask.GLOBAL));
 
                             } else if (command.equals(
-                            finalPrefs.getString("lang.en.process.recover"))) {
+                                           finalPrefs.getString("lang.process.recover"))) {
                                 VSAbstractEvent event =
                                     new VSProcessRecoverEvent();
 
@@ -544,11 +540,11 @@ public class VSSimulatorVisualization extends Canvas
                                                         VSTask.GLOBAL));
 
                             } else if (command.equals(
-                            finalPrefs.getString("lang.en.process.remove"))) {
+                                           finalPrefs.getString("lang.process.remove"))) {
                                 removeProcess(process);
 
                             } else if (command.equals(
-                            finalPrefs.getString("lang.en.process.add.new"))) {
+                                           finalPrefs.getString("lang.process.add.new"))) {
                                 addProcess();
                             }
                         }
@@ -559,18 +555,18 @@ public class VSSimulatorVisualization extends Canvas
 
                     if (process != null)
                         item = new JMenuItem(
-                            finalPrefs.getString("lang.en.process.selected") +
+                            finalPrefs.getString("lang.process.selected") +
                             ": " + process.getProcessID());
                     else
                         item = new JMenuItem(
-                            finalPrefs.getString("lang.en.process.not.selected"));
+                            finalPrefs.getString("lang.process.not.selected"));
 
                     item.setEnabled(false);
                     popup.add(item);
                     popup.addSeparator();
 
                     item = new JMenuItem(
-                        finalPrefs.getString("lang.en.process.edit"));
+                        finalPrefs.getString("lang.process.edit"));
                     if (process == null)
                         item.setEnabled(false);
                     else
@@ -578,7 +574,7 @@ public class VSSimulatorVisualization extends Canvas
                     popup.add(item);
 
                     item = new JMenuItem(
-                        finalPrefs.getString("lang.en.process.crash"));
+                        finalPrefs.getString("lang.process.crash"));
 
                     if (process == null || process.isCrashed() || isPaused ||
                             time == 0 || hasFinished)
@@ -588,7 +584,7 @@ public class VSSimulatorVisualization extends Canvas
                     popup.add(item);
 
                     item = new JMenuItem(
-                        finalPrefs.getString("lang.en.process.recover"));
+                        finalPrefs.getString("lang.process.recover"));
 
                     if (process == null || !process.isCrashed() || isPaused ||
                             time == 0 || hasFinished)
@@ -598,7 +594,7 @@ public class VSSimulatorVisualization extends Canvas
                     popup.add(item);
 
                     item = new JMenuItem(
-                        finalPrefs.getString("lang.en.process.remove"));
+                        finalPrefs.getString("lang.process.remove"));
 
                     if (process == null)
                         item.setEnabled(false);
@@ -610,11 +606,11 @@ public class VSSimulatorVisualization extends Canvas
 
                     final long xPosTime = getXPositionTime(me.getX());
                     String timeString = finalPrefs.getString(
-                                            "lang.en.event.add.time") +
+                                            "lang.event.add.time") +
                                         " " + xPosTime + "ms";
 
                     JMenu subMenu = new JMenu(
-                        finalPrefs.getString("lang.en.event.add.local")
+                        finalPrefs.getString("lang.event.add.local")
                         + " " + timeString);
 
                     ArrayList<VSCreateTask> createTasks =
@@ -651,7 +647,7 @@ public class VSSimulatorVisualization extends Canvas
                     popup.add(subMenu);
 
                     subMenu = new JMenu(
-                        finalPrefs.getString("lang.en.event.add.global")
+                        finalPrefs.getString("lang.event.add.global")
                         + " " + timeString);
                     if (process == null) {
                         subMenu.setEnabled(false);
@@ -687,7 +683,7 @@ public class VSSimulatorVisualization extends Canvas
                     popup.addSeparator();
 
                     item = new JMenuItem(
-                        finalPrefs.getString("lang.en.process.add.new"));
+                        finalPrefs.getString("lang.process.add.new"));
 
                     item.addActionListener(actionListener);
                     popup.add(item);
@@ -1298,7 +1294,7 @@ public class VSSimulatorVisualization extends Canvas
      * Starts/plays the simulator.
      */
     public void play() {
-        loging.log(prefs.getString("lang.en.simulator.started"));
+        loging.log(prefs.getString("lang.simulator.started"));
         final long currentTime = System.currentTimeMillis();
 
         synchronized (processes) {
@@ -1336,7 +1332,7 @@ public class VSSimulatorVisualization extends Canvas
 
         simulator.finish();
         hasFinished = true;
-        loging.log(prefs.getString("lang.en.simulator.finished"));
+        loging.log(prefs.getString("lang.simulator.finished"));
         paint();
 
         if (prefs.getBoolean("sim.periodic")) {
@@ -1357,7 +1353,7 @@ public class VSSimulatorVisualization extends Canvas
         }
 
         pauseTime = System.currentTimeMillis();
-        loging.log(prefs.getString("lang.en.simulator.paused"));
+        loging.log(prefs.getString("lang.simulator.paused"));
         paint();
     }
 
@@ -1366,7 +1362,7 @@ public class VSSimulatorVisualization extends Canvas
      */
     public void reset() {
         if (!isResetted) {
-            loging.log(prefs.getString("lang.en.simulator.resetted"));
+            loging.log(prefs.getString("lang.simulator.resetted"));
 
             isResetted = true;
             isPaused = false;
@@ -1676,7 +1672,7 @@ public class VSSimulatorVisualization extends Canvas
     private VSInternalProcess createProcess(int processNum) {
         VSInternalProcess process =
             new VSInternalProcess(prefs, processNum, this, loging);
-        loging.log(prefs.getString("lang.en.process.new") + "; " + process);
+        loging.log(prefs.getString("lang.process.new") + "; " + process);
         return process;
     }
 
@@ -1784,7 +1780,6 @@ public class VSSimulatorVisualization extends Canvas
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {

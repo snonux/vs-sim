@@ -175,7 +175,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
      * the task manager's JTable.
      */
     private class VSTaskManagerTableModel extends AbstractTableModel
-                implements MouseListener {
+        implements MouseListener {
         /** the serial version uid */
         private static final long serialVersionUID = 1l;
 
@@ -218,9 +218,9 @@ public class VSSimulator extends JPanel implements VSSerializable {
             tasks = new ArrayList<VSTask>();
             set(process, localTask, ONE_PROCESS);
             columnNames = new String[3];
-            columnNames[0]= prefs.getString("lang.en.time") + " (ms)";
-            columnNames[1] = prefs.getString("lang.en.process.id");
-            columnNames[2] = prefs.getString("lang.en.event");
+            columnNames[0]= prefs.getString("lang.time") + " (ms)";
+            columnNames[1] = prefs.getString("lang.process.id");
+            columnNames[2] = prefs.getString("lang.event");
             numColumns = 3;
         }
 
@@ -410,23 +410,23 @@ public class VSSimulator extends JPanel implements VSSerializable {
                         String command = ae.getActionCommand();
                         int rows[] = source.getSelectedRows();
 
-                        if (command.equals(prefs.getString("lang.en.remove"))) {
+                        if (command.equals(prefs.getString("lang.remove"))) {
                             for (int i = rows.length - 1; i >= 0; --i)
                                 removeTaskAtRow(rows[i]);
 
                         } else if (command.equals(
-                        prefs.getString("lang.en.copy"))) {
+                                       prefs.getString("lang.copy"))) {
                             copyTasksAtRows(rows);
                         }
                     }
                 };
 
                 JPopupMenu popup = new JPopupMenu();
-                JMenuItem item = new JMenuItem(prefs.getString("lang.en.remove"));
+                JMenuItem item = new JMenuItem(prefs.getString("lang.remove"));
                 item.addActionListener(actionListener);
                 popup.add(item);
 
-                item = new JMenuItem(prefs.getString("lang.en.copy"));
+                item = new JMenuItem(prefs.getString("lang.copy"));
                 item.addActionListener(actionListener);
                 popup.add(item);
 
@@ -464,7 +464,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
      * the task manager's JTable editor
      */
     private class VSTaskManagerCellEditor extends AbstractCellEditor
-                implements TableCellEditor {
+        implements TableCellEditor {
         /** the serial version uid */
         private static final long serialVersionUID = 1L;
 
@@ -607,7 +607,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
         if (this.loging == null)
             this.loging = new VSLogging();
 
-        loging.log(prefs.getString("lang.en.simulator.new"));
+        loging.log(prefs.getString("lang.simulator.new"));
 
         fillContentPane();
         updateFromPrefs();
@@ -688,7 +688,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         toolsPanel.setLayout(new BoxLayout(toolsPanel, BoxLayout.X_AXIS));
         JCheckBox expertActiveCheckBox =
-            new JCheckBox(prefs.getString("lang.en.mode.expert"));
+            new JCheckBox(prefs.getString("lang.mode.expert"));
 
         expertActiveCheckBox.setSelected(expertMode);
         expertActiveCheckBox.addChangeListener(new ChangeListener() {
@@ -708,7 +708,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         if (expertMode) {
             lamportActiveCheckBox = new JCheckBox(
-                prefs.getString("lang.en.time.lamport"));
+                prefs.getString("lang.time.lamport"));
             lamportActiveCheckBox.setSelected(false);
             lamportActiveCheckBox.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent ce) {
@@ -724,7 +724,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
             toolsPanel.add(lamportActiveCheckBox);
 
             vectorTimeActiveCheckBox = new JCheckBox(
-                prefs.getString("lang.en.time.vector"));
+                prefs.getString("lang.time.vector"));
             vectorTimeActiveCheckBox.setSelected(false);
             vectorTimeActiveCheckBox.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent ce) {
@@ -740,7 +740,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
             toolsPanel.add(vectorTimeActiveCheckBox);
 
             JCheckBox antiAliasing = new JCheckBox(
-                prefs.getString("lang.en.antialiasing"));
+                prefs.getString("lang.antialiasing"));
             antiAliasing.setSelected(false);
             antiAliasing.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent ce) {
@@ -755,7 +755,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
         }
 
         JCheckBox logingActiveCheckBox = new JCheckBox(
-            prefs.getString("lang.en.loging.active"));
+            prefs.getString("lang.loging.active"));
         logingActiveCheckBox.setSelected(true);
         logingActiveCheckBox.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent ce) {
@@ -769,7 +769,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         if (expertMode) {
             filterActiveCheckBox = new JCheckBox(
-                prefs.getString("lang.en.filter"));
+                prefs.getString("lang.filter"));
             filterActiveCheckBox.setSelected(false);
             filterActiveCheckBox.addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent ce) {
@@ -799,12 +799,12 @@ public class VSSimulator extends JPanel implements VSSerializable {
             toolsPanel.add(filterTextField);
 
             JButton clearButton = new JButton(
-                prefs.getString("lang.en.loging.clear"));
+                prefs.getString("lang.loging.clear"));
             clearButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent ae) {
                     String command = ae.getActionCommand();
                     if (command.equals(
-                    prefs.getString("lang.en.loging.clear"))) {
+                                prefs.getString("lang.loging.clear"))) {
                         loging.clear();
                     }
                 }
@@ -831,7 +831,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         lastSelectedProcessNum = 0;
         int numProcesses = simulatorVisualization.getNumProcesses();
-        String processString = prefs.getString("lang.en.process");
+        String processString = prefs.getString("lang.process");
 
         for (int i = 0; i < numProcesses; ++i) {
             int pid = simulatorVisualization.getProcess(i).getProcessID();
@@ -840,9 +840,9 @@ public class VSSimulator extends JPanel implements VSSerializable {
             globalPIDComboBox.addItem("PID: " + pid);
         }
 
-        processesComboBox.addItem(prefs.getString("lang.en.processes.all"));
-        localPIDComboBox.addItem(prefs.getString("lang.en.all"));
-        globalPIDComboBox.addItem(prefs.getString("lang.en.all"));
+        processesComboBox.addItem(prefs.getString("lang.processes.all"));
+        localPIDComboBox.addItem(prefs.getString("lang.all"));
+        globalPIDComboBox.addItem(prefs.getString("lang.all"));
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP,
                                      JTabbedPane.WRAP_TAB_LAYOUT);
@@ -856,10 +856,10 @@ public class VSSimulator extends JPanel implements VSSerializable {
         splitPane1.setOneTouchExpandable(true);
 
         if (expertMode)
-            tabbedPane.addTab(prefs.getString("lang.en.events"), splitPane1);
+            tabbedPane.addTab(prefs.getString("lang.events"), splitPane1);
 
         else
-            tabbedPane.addTab(prefs.getString("lang.en.events"), localPanel);
+            tabbedPane.addTab(prefs.getString("lang.events"), localPanel);
 
         processesComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -898,7 +898,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
             }
         });
 
-        tabbedPane.add(prefs.getString("lang.en.variables"), null);
+        tabbedPane.add(prefs.getString("lang.variables"), null);
 
         editPanel.add(processesComboBox);
         editPanel.add(tabbedPane);
@@ -934,9 +934,9 @@ public class VSSimulator extends JPanel implements VSSerializable {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         if (localTasks)
-            panel.add(createLabelPanel(prefs.getString("lang.en.timed.local")));
+            panel.add(createLabelPanel(prefs.getString("lang.timed.local")));
         else
-            panel.add(createLabelPanel(prefs.getString("lang.en.timed.global")));
+            panel.add(createLabelPanel(prefs.getString("lang.timed.global")));
 
         JScrollPane scrollPane = new JScrollPane(createTaskTable(localTasks));
         panel.add(scrollPane);
@@ -1027,7 +1027,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
         }
 
         final JComboBox<String> comboBox = new JComboBox<>();
-        JButton takeoverButton = new JButton(prefs.getString("lang.en.takeover"));
+        JButton takeoverButton = new JButton(prefs.getString("lang.takeover"));
         takeoverButton.setMnemonic(prefs.getInteger("keyevent.takeover"));
         takeoverButton.addActionListener(new ActionListener() {
             private boolean isRed;
@@ -1090,7 +1090,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
                     taskManager.addTask(task, VSTaskManager.PROGRAMMED);
 
                     if (selectedProcess == null ||
-                    process.equals(selectedProcess)) {
+                            process.equals(selectedProcess)) {
                         if (localTasks)
                             taskManagerLocalModel.addTask(task);
                         else
@@ -1111,7 +1111,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
             VSRegisteredEvents.getNonProtocolClassnames();
 
         comboBox.setMaximumRowCount(20);
-        String menuText = prefs.getString("lang.en.events.process");
+        String menuText = prefs.getString("lang.events.process");
         comboBox.addItem("----- " + menuText + " -----");
 
         if (createTaskFlag)
@@ -1126,13 +1126,13 @@ public class VSSimulator extends JPanel implements VSSerializable {
                 createTasks.add(new VSCreateTask(menuText, eventClassname));
         }
 
-        String activate = prefs.getString("lang.en.activate");
-        String client = prefs.getString("lang.en.client");
-        String clientRequest = prefs.getString("lang.en.clientrequest.start");
-        String deactivate = prefs.getString("lang.en.deactivate");
-        String server = prefs.getString("lang.en.server");
-        String serverRequest = prefs.getString("lang.en.serverrequest.start");
-        String protocol = prefs.getString("lang.en.protocol");
+        String activate = prefs.getString("lang.activate");
+        String client = prefs.getString("lang.client");
+        String clientRequest = prefs.getString("lang.clientrequest.start");
+        String deactivate = prefs.getString("langactivate");
+        String server = prefs.getString("lang.server");
+        String serverRequest = prefs.getString("lang.serverrequest.start");
+        String protocol = prefs.getString("lang.protocol");
 
         String protocolEventClassname = "events.internal.VSProtocolEvent";
         eventClassnames = VSRegisteredEvents.getProtocolClassnames();
@@ -1316,7 +1316,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
      */
     private void updateProcessesComboBox() {
         int numProcesses = simulatorVisualization.getNumProcesses();
-        String processString = prefs.getString("lang.en.process");
+        String processString = prefs.getString("lang.process");
 
         for (int i = 0; i < numProcesses; ++i) {
             int processID = simulatorVisualization.getProcess(i).getProcessID();
@@ -1414,7 +1414,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
      */
     public synchronized void addProcessAtIndex(int index) {
         int processID = simulatorVisualization.getProcess(index).getProcessID();
-        String processString = prefs.getString("lang.en.process");
+        String processString = prefs.getString("lang.process");
 
         localTextFields.add(index, "0000");
         globalTextFields.add(index, "0000");
@@ -1437,7 +1437,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         if (expertMode) {
             tabbedPane.remove(localPanel);
-            tabbedPane.insertTab(prefs.getString("lang.en.events"), null,
+            tabbedPane.insertTab(prefs.getString("lang.events"), null,
                                  splitPane1, null, 0);
             splitPane1.setTopComponent(localPanel);
             //splitPane1.setDividerLocation((int) (getPaintSize()/2) - 20);
@@ -1447,7 +1447,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
 
         } else {
             tabbedPane.remove(splitPane1);
-            tabbedPane.insertTab(prefs.getString("lang.en.events"), null,
+            tabbedPane.insertTab(prefs.getString("lang.events"), null,
                                  localPanel, null, 0);
 
             /* addPanel */

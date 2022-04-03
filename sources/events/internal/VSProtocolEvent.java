@@ -21,7 +21,7 @@ import serialize.VSSerialize;
  * @author Paul C. Buetow
  */
 public class VSProtocolEvent extends VSAbstractInternalEvent
-            implements VSCopyableEvent {
+    implements VSCopyableEvent {
     /** The protocol classname. */
     private String protocolClassname;
 
@@ -116,13 +116,13 @@ public class VSProtocolEvent extends VSAbstractInternalEvent
 
         buffer.append(" ");
         buffer.append(isClientProtocol
-                      ? prefs.getString("lang.en.client")
-                      : prefs.getString("lang.en.server"));
+                      ? prefs.getString("lang.client")
+                      : prefs.getString("lang.server"));
 
         buffer.append(" ");
         buffer.append(isProtocolActivation
-                      ? prefs.getString("lang.en.activated")
-                      : prefs.getString("lang.en.deactivated"));
+                      ? prefs.getString("lang.activated")
+                      : prefs.getString("langactivated"));
 
         log(buffer.toString());
     }

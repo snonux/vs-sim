@@ -151,7 +151,7 @@ public class VSMessage extends VSPrefs {
         buffer.append("ID: ");
         buffer.append(messageID);
         buffer.append("; ");
-        buffer.append(prefs.getString("lang.en.protocol"));
+        buffer.append(prefs.getString("lang.protocol"));
         buffer.append(": ");
         buffer.append(VSRegisteredEvents.getShortnameByClassname(
                           getProtocolClassname()));

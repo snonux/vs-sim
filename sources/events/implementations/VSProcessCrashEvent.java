@@ -10,7 +10,7 @@ import simulator.VSMain;
  * @author Paul C. Buetow
  */
 public class VSProcessCrashEvent extends VSAbstractEvent
-            implements VSCopyableEvent {
+    implements VSCopyableEvent {
     /* (non-Javadoc)
      * @see events.VSCopyableEvent#initCopy(events.VSAbstractEvent)
      */
@@ -28,7 +28,7 @@ public class VSProcessCrashEvent extends VSAbstractEvent
      * @see events.VSAbstractEvent#createShortname()()
      */
     protected String createShortname(String savedShortname) {
-	return VSMain.prefs.getString("lang.en.process.crash");
+        return VSMain.prefs.getString("lang.process.crash");
     }
 
     /* (non-Javadoc)
@@ -37,7 +37,7 @@ public class VSProcessCrashEvent extends VSAbstractEvent
     public void onStart() {
         if (!process.isCrashed()) {
             process.isCrashed(true);
-            log(prefs.getString("lang.en.crashed"));
+            log(prefs.getString("lang.crashed"));
         }
     }
 }

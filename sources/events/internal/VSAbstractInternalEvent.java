@@ -18,7 +18,7 @@ abstract public class VSAbstractInternalEvent extends VSAbstractEvent {
      * @see events.VSAbstractEvent#createShortname()()
      */
     protected String createShortname(String savedShortname) {
-	    return savedShortname;
+        return savedShortname;
     }
 
     /* (non-Javadoc)

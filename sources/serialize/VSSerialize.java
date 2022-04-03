@@ -27,7 +27,7 @@ public final class VSSerialize {
     public static final boolean DEBUG = true;
 
     /** The last filename used for saveing/opening*/
-    public static String LAST_FILENAME = null;
+    public static volatile String LAST_FILENAME = null;
 
     /** For temp object storage */
     private static HashMap<String,Object> objects;
@@ -110,8 +110,7 @@ public final class VSSerialize {
         Object object = objects.get(key + ":" + num);
 
         if (object == null) {
-            System.err.println("No such deserialization helper key "
-                               + key + ":" + num);
+            System.err.println("No such deserialization helper key " + key + ":" + num);
             System.exit(1);
         }
 
@@ -156,8 +155,7 @@ public final class VSSerialize {
             ObjectOutputStream objectOutputStream =
                 new ObjectOutputStream(fileOutputStream);
 
-            VSSerializablePrefs prefs = (VSSerializablePrefs)
-                                        simulator.getPrefs();
+            VSSerializablePrefs prefs = (VSSerializablePrefs) simulator.getPrefs();
             prefs.serialize(this, objectOutputStream);
             simulator.serialize(this, objectOutputStream);
 
@@ -178,9 +176,8 @@ public final class VSSerialize {
         VSPrefs prefs = simulator.getPrefs();
         VSSimulatorFrame simulatorFrame = simulator.getSimulatorFrame();
 
-        String saveText = prefs.getString("lang.en.save");
-        JFileChooser fileChooser = new JFileChooser(
-            new File(".").getPath());
+        String saveText = prefs.getString("lang.save");
+        JFileChooser fileChooser = new JFileChooser(new File(".").getPath());
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.addChoosableFileFilter(createFileFilter(prefs));
         fileChooser.setApproveButtonText(saveText);
@@ -208,14 +205,11 @@ public final class VSSerialize {
         LAST_FILENAME = filename;
 
         try {
-            FileInputStream fileInputStream =
-                new FileInputStream(filename);
-            ObjectInputStream objectInputStream =
-                new ObjectInputStream(fileInputStream);
+            FileInputStream fileInputStream = new FileInputStream(filename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
             VSDefaultPrefs prefs = new VSDefaultPrefs();
             prefs.deserialize(this, objectInputStream);
-            //prefs.useDefaultStrings(true);
             prefs.addWithDefaults();
 
             this.setObject("prefs", prefs);
@@ -225,7 +219,7 @@ public final class VSSerialize {
             simulator.deserialize(this, objectInputStream);
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
 
         } finally {
             //objectInputStream.close();
@@ -244,7 +238,7 @@ public final class VSSerialize {
     public VSSimulator openSimulator(VSSimulatorFrame simulatorFrame) {
         VSPrefs prefs = simulatorFrame.getPrefs();
 
-        String openText = prefs.getString("lang.en.open");
+        String openText = prefs.getString("lang.open");
         JFileChooser fileChooser = new JFileChooser(
             new File(".").getPath());
         fileChooser.setMultiSelectionEnabled(false);
@@ -276,7 +270,7 @@ public final class VSSerialize {
             }
 
             public String getDescription() {
-                return prefs.getString("lang.en.dat");
+                return prefs.getString("lang.dat");
             }
         };
     }

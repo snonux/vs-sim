@@ -439,9 +439,9 @@ public class VSTaskManager implements VSSerializable {
     public synchronized String toString() {
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append(prefs.getString("lang.en.task.manager"));
+        buffer.append(prefs.getString("lang.task.manager"));
         buffer.append(" (");
-        buffer.append(prefs.getString("lang.en.tasks.fullfilled"));
+        buffer.append(prefs.getString("lang.tasks.fullfilled"));
         buffer.append(": ");
 
         for (VSTask task : fullfilledProgrammedTasks) {
@@ -449,7 +449,7 @@ public class VSTaskManager implements VSSerializable {
             buffer.append("; ");
         }
 
-        buffer.append(prefs.getString("lang.en.tasks.global"));
+        buffer.append(prefs.getString("lang.tasks.global"));
         buffer.append(": ");
 
         for (VSTask task : globalTasks) {
@@ -457,7 +457,7 @@ public class VSTaskManager implements VSSerializable {
             buffer.append("; ");
         }
 
-        buffer.append(prefs.getString("lang.en.tasks.local"));
+        buffer.append(prefs.getString("lang.tasks.local"));
         buffer.append(": ");
 
         ArrayList<VSInternalProcess> processes =

@@ -320,9 +320,9 @@ public final class VSRegisteredEvents {
      */
     private static void registerEvent(String eventClassname) {
         String eventName =
-            prefs.getString("lang.en." + eventClassname);
+            prefs.getString("lang." + eventClassname);
         String eventShortname =
-            prefs.getString("lang.en." + eventClassname + ".short");
+            prefs.getString("lang." + eventClassname + ".short");
         registerEvent(eventClassname, eventName, eventShortname);
     }
 

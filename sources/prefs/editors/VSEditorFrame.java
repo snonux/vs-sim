@@ -63,13 +63,13 @@ public class VSEditorFrame extends VSFrame implements ActionListener {
      */
     private void fillButtonPanel(JPanel buttonPanel) {
         JButton okButton = new JButton(
-            prefs.getString("lang.en.ok"));
+            prefs.getString("lang.ok"));
         okButton.setMnemonic(prefs.getInteger("keyevent.ok"));
         okButton.addActionListener(this);
         buttonPanel.add(okButton, 0);
 
         JButton cancelButton = new JButton(
-            prefs.getString("lang.en.cancel"));
+            prefs.getString("lang.cancel"));
         cancelButton.setMnemonic(prefs.getInteger("keyevent.cancel"));
         cancelButton.addActionListener(this);
         buttonPanel.add(cancelButton, 1);
@@ -83,11 +83,11 @@ public class VSEditorFrame extends VSFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
 
-        if (actionCommand.equals(prefs.getString("lang.en.ok"))) {
+        if (actionCommand.equals(prefs.getString("lang.ok"))) {
             editor.actionPerformed(e);
             dispose();
 
-        } else if (actionCommand.equals(prefs.getString("lang.en.cancel"))) {
+        } else if (actionCommand.equals(prefs.getString("lang.cancel"))) {
             editor.actionPerformed(e);
             dispose();
 

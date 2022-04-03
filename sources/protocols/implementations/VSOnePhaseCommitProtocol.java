@@ -33,6 +33,7 @@ public class VSOnePhaseCommitProtocol extends VSAbstractProtocol {
         vec.add(1);
         vec.add(3);
 
+        // TODO: Translate
         initVector("pids", vec, "PIDs beteiligter Prozesse");
         initLong("timeout", 2500, "Zeit bis erneute Anfrage", "ms");
     }
@@ -100,7 +101,6 @@ public class VSOnePhaseCommitProtocol extends VSAbstractProtocol {
     public void onServerSchedule() {
         onServerStart();
     }
-
 
     /* Client variables, coordinator */
     private ArrayList<Integer> pids;

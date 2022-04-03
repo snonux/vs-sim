@@ -16,7 +16,7 @@ import serialize.VSSerialize;
  * @author Paul C. Buetow
  */
 public class VSProtocolScheduleEvent extends VSAbstractInternalEvent
-            implements VSNotSerializable {
+    implements VSNotSerializable {
     /** The event is a server protocol schedule. */
     private boolean isServerSchedule; /* true = server, false = client */
 

@@ -11,7 +11,7 @@ import serialize.VSNotSerializable;
  * @author Paul C. Buetow
  */
 public class VSMessageReceiveEvent extends VSAbstractInternalEvent
-            implements VSNotSerializable {
+    implements VSNotSerializable {
 
     /** The message. */
     private VSMessage message;
@@ -53,7 +53,7 @@ public class VSMessageReceiveEvent extends VSAbstractInternalEvent
         process.updateVectorTime(message.getVectorTime());
 
         StringBuffer buffer = new StringBuffer();
-        buffer.append(prefs.getString("lang.en.message.recv"));
+        buffer.append(prefs.getString("lang.message.recv"));
         buffer.append("; ");
         buffer.append(message);;
         log(buffer.toString());

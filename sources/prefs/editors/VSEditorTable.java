@@ -105,7 +105,7 @@ public class VSEditorTable extends JTable {
      * The class VSEditorTableModel, it is the model of a VSEditorTable.
      */
     private class VSEditorTableModel extends AbstractTableModel
-                implements TableCellRenderer {
+        implements TableCellRenderer {
         /** The serial version uid */
         private static final long serialVersionUID = 1L;
 
@@ -213,7 +213,7 @@ public class VSEditorTable extends JTable {
      * The class VSTableCellEditor, is the editor of the VSEditorTable
      */
     private class VSTableCellEditor extends AbstractCellEditor
-                implements TableCellEditor  {
+        implements TableCellEditor  {
         /** The serial version uid */
         private static final long serialVersionUID = 1L;
 

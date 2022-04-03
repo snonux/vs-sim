@@ -31,8 +31,8 @@ public class VSAboutFrame extends VSFrame {
      * @param relativeTo the component to open the about window relative to
      */
     public VSAboutFrame(VSPrefs prefs, Component relativeTo) {
-        super(prefs.getString("lang.en.name") + " - "
-              + prefs.getString("lang.en.about"), relativeTo);
+        super(prefs.getString("lang.name") + " - "
+              + prefs.getString("lang.about"), relativeTo);
         this.prefs = prefs;
 
         disposeWithParent();
@@ -51,7 +51,7 @@ public class VSAboutFrame extends VSFrame {
         Container contentPane = getContentPane();
 
         VSInfoArea infoArea = new VSInfoArea(
-            prefs.getString("lang.en.about.info"));
+            prefs.getString("lang.about.info"));
         JPanel buttonPane = createButtonPanel();
         JScrollPane scrollPane = new JScrollPane(infoArea);
 
@@ -71,12 +71,12 @@ public class VSAboutFrame extends VSFrame {
         buttonPane.setBackground(Color.WHITE);
 
         JButton closeButton = new JButton(
-            prefs.getString("lang.en.close"));
+            prefs.getString("lang.close"));
         closeButton.setMnemonic(prefs.getInteger("keyevent.close"));
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String actionCommand = e.getActionCommand();
-                if (actionCommand.equals(prefs.getString("lang.en.close")))
+                if (actionCommand.equals(prefs.getString("lang.close")))
                     dispose();
             }
         });

@@ -11,7 +11,7 @@ import simulator.VSMain;
  * @author Paul C. Buetow
  */
 public class VSProcessRecoverEvent extends VSAbstractEvent
-            implements VSCopyableEvent {
+    implements VSCopyableEvent {
     /* (non-Javadoc)
      * @see events.VSCopyableEvent#initCopy(events.VSAbstractEvent)
      */
@@ -29,7 +29,7 @@ public class VSProcessRecoverEvent extends VSAbstractEvent
      * @see events.VSAbstractEvent#createShortname()()
      */
     protected String createShortname(String savedShortname) {
-	return VSMain.prefs.getString("lang.en.process.recover");
+        return VSMain.prefs.getString("lang.process.recover");
     }
 
     /* (non-Javadoc)
@@ -38,7 +38,7 @@ public class VSProcessRecoverEvent extends VSAbstractEvent
     public void onStart() {
         if (process.isCrashed()) {
             process.isCrashed(false);
-            log(prefs.getString("lang.en.recovered"));
+            log(prefs.getString("lang.recovered"));
         }
     }
 }

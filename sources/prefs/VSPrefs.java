@@ -210,8 +210,7 @@ public class VSPrefs {
         Object val = objectPrefs.get(key);
 
         if (val == null) {
-            System.err.println("Fatal: No such object config value \""
-                               + key + "\"");
+            System.err.println("Fatal: No such object config value \"" + key + "\"");
             System.exit(1);
         }
 
@@ -531,8 +530,7 @@ public class VSPrefs {
         Integer val = integerPrefs.get(key);
 
         if (val == null) {
-            System.err.println("Fatal: No such integer config value \""
-                               + key + "\"");
+            System.err.println("Fatal: No such integer config value \"" + key + "\"");
             System.exit(1);
         }
 
@@ -665,8 +663,7 @@ public class VSPrefs {
         Vector<Integer> val = vectorPrefs.get(key);
 
         if (val == null) {
-            System.err.println("Fatal: No such integer config value \""
-                               + key + "\"");
+            System.err.println("Fatal: No such integer config value \"" + key + "\"");
             System.exit(1);
         }
 
@@ -752,8 +749,7 @@ public class VSPrefs {
         Long val = longPrefs.get(key);
 
         if (val == null) {
-            System.err.println("Fatal: No such long config value \""
-                               + key + "\"");
+            System.err.println("Fatal: No such long config value \"" + key + "\"");
             System.exit(1);
         }
 
@@ -848,8 +844,8 @@ public class VSPrefs {
         String val = stringPrefs.get(key);
 
         if (val == null) {
-            System.err.println("Fatal: No such string config value \""
-                               + key + "\"");
+            // TODO: Redirect all string keys with prefix "lang" to static lang map.
+            System.err.println("Fatal: No such string config value \"" + key + "\"");
             System.exit(1);
         }
 
@@ -936,26 +932,16 @@ public class VSPrefs {
         /** For later backwards compatibility, to add more stuff */
         objectInputStream.readObject();
 
-        booleanPrefs = (HashMap<String,Boolean>)
-                       objectInputStream.readObject();
-        colorPrefs = (HashMap<String,Color>)
-                     objectInputStream.readObject();
-        descriptionPrefs = (HashMap<String,String>)
-                           objectInputStream.readObject();
-        floatPrefs = (HashMap<String,Float>)
-                     objectInputStream.readObject();
-        integerPrefs = (HashMap<String,Integer>)
-                       objectInputStream.readObject();
-        longPrefs = (HashMap<String,Long>)
-                    objectInputStream.readObject();
-        stringPrefs = (HashMap<String,String>)
-                      objectInputStream.readObject();
-        units = (HashMap<String,String>)
-                objectInputStream.readObject();
-        vectorPrefs = (HashMap<String,Vector<Integer>>)
-                      objectInputStream.readObject();
-        restrictions = (HashMap<String,VSPrefsRestriction>)
-                       objectInputStream.readObject();
+        booleanPrefs = (HashMap<String,Boolean>) objectInputStream.readObject();
+        colorPrefs = (HashMap<String,Color>) objectInputStream.readObject();
+        descriptionPrefs = (HashMap<String,String>) objectInputStream.readObject();
+        floatPrefs = (HashMap<String,Float>) objectInputStream.readObject();
+        integerPrefs = (HashMap<String,Integer>) objectInputStream.readObject();
+        longPrefs = (HashMap<String,Long>) objectInputStream.readObject();
+        stringPrefs = (HashMap<String,String>) objectInputStream.readObject();
+        units = (HashMap<String,String>) objectInputStream.readObject();
+        vectorPrefs = (HashMap<String,Vector<Integer>>) objectInputStream.readObject();
+        restrictions = (HashMap<String,VSPrefsRestriction>) objectInputStream.readObject();
 
         /** For later backwards compatibility, to add more stuff */
         objectInputStream.readObject();
