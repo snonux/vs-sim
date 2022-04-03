@@ -51,8 +51,8 @@ public class VSInternalTimeSyncProtocol extends VSAbstractProtocol {
      * @see events.VSAbstractProtocol#onClientInit()
      */
     public void onClientInit() {
-        initLong("t_min", 2000, "Max. Übetragungszeit", "ms");
-        initLong("t_max", 500, "Min. Übertragungszeit", "ms");
+        initLong("t_min", 2000, "Max. Ãœbetragungszeit", "ms");
+        initLong("t_max", 500, "Min. Ãœbertragungszeit", "ms");
     }
 
     /* (non-Javadoc)

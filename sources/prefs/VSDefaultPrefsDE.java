@@ -72,7 +72,7 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
      */
     public void fillDefaultStrings() {
         initString("lang.de.about", "About");
-        initString("lang.de.about.info", "Dieses Programm wurde von Paul Bütow im Rahmen der Diplomarbeit \"Objektorientierte Entwicklung eines GUI-basierten Tools für die ereignisbasierte Simulator verteilter Systeme\" bei Prof. Dr.-Ing. Oßmann als 1. Prüfer sowie Betreuer und Prof. Dr. rer. nat. Fassbender als 2. Prüfer erstellt. Bei Fehlern bitte eine kurze Mail mit Fehlerbeschreibung an vs@paul.buetow.org schicken!");
+        initString("lang.de.about.info", "Dieses Programm wurde von Paul BÃ¼tow im Rahmen der Diplomarbeit \"Objektorientierte Entwicklung eines GUI-basierten Tools fÃ¼r die ereignisbasierte Simulator verteilter Systeme\" bei Prof. Dr.-Ing. OÃŸmann als 1. PrÃ¼fer sowie Betreuer und Prof. Dr. rer. nat. Fassbender als 2. PrÃ¼fer erstellt. Bei Fehlern bitte eine kurze Mail mit Fehlerbeschreibung an vs@paul.buetow.org schicken!");
         initString("lang.de.activate", "aktivieren");
         initString("lang.de.activated", "aktiviert");
         initString("lang.de.actualize", "Aktualisieren");
@@ -83,9 +83,9 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
         initString("lang.de.clientrequest.start", "Clientanfrage starten");
         initString("lang.de.close", "Schliessen");
         initString("lang.de.colorchooser", "Farbauswahl");
-        initString("lang.de.colorchooser2", "Bitte Farbe auswählen");
+        initString("lang.de.colorchooser2", "Bitte Farbe auswÃ¤hlen");
         initString("lang.de.copy", "Kopieren");
-        initString("lang.de.crashed", "Abgestürzt");
+        initString("lang.de.crashed", "AbgestÃ¼rzt");
         initString("lang.de.dat", "Simulation (.dat)");
         initString("lang.de.deactivate", "deaktivieren");
         initString("lang.de.deactivated", "deaktiviert");
@@ -93,46 +93,46 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
         initString("lang.de.edit", "Editieren");
         initString("lang.de.editor", "Editor");
         initString("lang.de.event", "Ereignis");
-        initString("lang.de.event.add.global", "Globales Ereignis einfügen");
-        initString("lang.de.event.add.local", "Lokales Ereignis einfügen");
+        initString("lang.de.event.add.global", "Globales Ereignis einfÃ¼gen");
+        initString("lang.de.event.add.local", "Lokales Ereignis einfÃ¼gen");
         initString("lang.de.event.add.time", "bei");
         initString("lang.de.events", "Ereignisse");
         initString("lang.de.events.process", "Prozessereignisse");
         initString("lang.de.file", "Datei");
         initString("lang.de.filter", "Filter");
         initString("lang.de.loging.active", "Logging");
-        initString("lang.de.loging.clear", "Loggs löschen");
+        initString("lang.de.loging.clear", "Loggs lÃ¶schen");
         initString("lang.de.message", "Nachricht");
         initString("lang.de.message.recv", "Nachricht erhalten");
         initString("lang.de.message.sent", "Nachricht versendet");
         initString("lang.de.mode.expert", "Expertenmodus");
         initString("lang.de.name", "VS-Simulator 1.0");
         initString("lang.de.ok", "OK");
-        initString("lang.de.open", "Öffnen");
+        initString("lang.de.open", "Ã–ffnen");
         initString("lang.de.pause", "Pausieren");
         initString("lang.de.prefs", "Einstellungen");
         initString("lang.de.prefs.color", "Farbeinstellungen");
         initString("lang.de.prefs.diverse", "Diverse Einstellungen");
         initString("lang.de.prefs.ext", "Erweiterte Einstellungen");
         initString("lang.de.prefs.message", "Nachrichteneinstellungen");
-        initString("lang.de.prefs.message.defaults", "Nachrichteneinstellungen für neue Prozesse");
+        initString("lang.de.prefs.message.defaults", "Nachrichteneinstellungen fÃ¼r neue Prozesse");
         initString("lang.de.prefs.more", "Mehr Einstellungen");
         initString("lang.de.prefs.process", "Prozesseinstellungen");
         initString("lang.de.prefs.process", "Prozessstandardeinstellungen");
-        initString("lang.de.prefs.process.defaults", "Einstellungen für neue Prozesse");
+        initString("lang.de.prefs.process.defaults", "Einstellungen fÃ¼r neue Prozesse");
         initString("lang.de.prefs.process.ext", "Erweiterte Prozesseinstellungen");
         initString("lang.de.prefs.protocols", "Protokolleinstellungen");
         initString("lang.de.prefs.simulator", "Simulationseinstellungen");
         initString("lang.de.process", "Prozess");
-        initString("lang.de.process.add.new", "Neuen Prozess hinzufügen");
-        initString("lang.de.process.crash", "Prozess abstürzen");
+        initString("lang.de.process.add.new", "Neuen Prozess hinzufÃ¼gen");
+        initString("lang.de.process.crash", "Prozess abstÃ¼rzen");
         initString("lang.de.process.edit", "Prozess editieren");
         initString("lang.de.process.id", "PID");
         initString("lang.de.process.new", "Neuer Prozess");
-        initString("lang.de.process.not.selected", "Kein Prozess ausgewählt");
+        initString("lang.de.process.not.selected", "Kein Prozess ausgewÃ¤hlt");
         initString("lang.de.process.recover", "Prozess wiederbeleben");
         initString("lang.de.process.remove", "Prozess entfernen");
-        initString("lang.de.process.selected", "Aktuell ausgewählter Prozess");
+        initString("lang.de.process.selected", "Aktuell ausgewÃ¤hlter Prozess");
         initString("lang.de.process.time.local", "Lokale Zeit");
         initString("lang.de.processes.all", "Alle Prozesse");
         initString("lang.de.protocol", "Protokoll");
@@ -156,11 +156,11 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
         initString("lang.de.simulator.finished", "Simulation beendet");
         initString("lang.de.simulator.new", "Neue Simulation");
         initString("lang.de.simulator.paused", "Simulation pausiert");
-        initString("lang.de.simulator.resetted", "Simulation zurückgesetzt");
+        initString("lang.de.simulator.resetted", "Simulation zurÃ¼ckgesetzt");
         initString("lang.de.simulator.started", "Simulation gestartet");
         initString("lang.de.start", "Starten");
         initString("lang.de.stop", "Stoppen");
-        initString("lang.de.takeover", "Übernehmen");
+        initString("lang.de.takeover", "Ãœbernehmen");
         initString("lang.de.task", "Aufgabe");
         initString("lang.de.task.manager", "Ereigniseditor");
         initString("lang.de.tasks.fullfilled", "Abgelaufene Aufgaben");
@@ -236,8 +236,8 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
      */
     public void fillDefaultLongs() {
         /* Simulator prefs */
-        initLong("message.sendingtime.min", 500, "Minimale Übertragungszeit", "ms");
-        initLong("message.sendingtime.max", 2000, "Maximale Übertragungszeit", "ms");
+        initLong("message.sendingtime.min", 500, "Minimale Ãœbertragungszeit", "ms");
+        initLong("message.sendingtime.max", 2000, "Maximale Ãœbertragungszeit", "ms");
     }
 
     /**
@@ -266,7 +266,7 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
         initBoolean("sim.mode.expert", false, "Expertenmodus aktivieren");
         initBoolean("sim.message.own.recv", false, "Prozesse empfangen eigene Nachrichten");
         initBoolean("sim.message.prob.mean", true, "Mittelwerte der Nachrichtverlustw'k. bilden");
-        initBoolean("sim.message.sendingtime.mean", true, "Mittelwerte der Übertragungszeiten bilden");
+        initBoolean("sim.message.sendingtime.mean", true, "Mittelwerte der Ãœbertragungszeiten bilden");
         initBoolean("sim.messages.relevant", true, "Nur relevante Nachrichten anzeigen");
         initBoolean("sim.periodic", false, "Simulation periodisch wiederholen");
         initBoolean("sim.update.lamporttime.all", false, "Lamportzeiten betreffen alle Ereignisse");
