@@ -1,40 +1,23 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package core;
 
-import java.awt.*;
-import java.io.*;
-import java.util.*;
+import java.awt.Color;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
-import core.time.*;
-//import events.*;
-//import events.implementations.*;
-import prefs.*;
-import protocols.*;
-import serialize.*;
-import simulator.*;
-import utils.*;
+import core.time.VSLamportTime;
+import core.time.VSTime;
+import core.time.VSVectorTime;
+import prefs.VSPrefs;
+import prefs.VSSerializablePrefs;
+import protocols.VSAbstractProtocol;
+import serialize.VSSerialize;
+import simulator.VSLogging;
+import simulator.VSSimulatorVisualization;
+import utils.VSPriorityQueue;
+import utils.VSRandom;
+import utils.VSTools;
 
 /**
  * The class VSAbstractProcess, an object of this class represents a process
@@ -42,8 +25,7 @@ import utils.*;
  *
  * @author Paul C. Buetow
  */
-public abstract class VSAbstractProcess extends VSSerializablePrefs
-            implements VSSerializable {
+public abstract class VSAbstractProcess extends VSSerializablePrefs {
     /** The data serialization id. */
     protected static final long serialVersionUID = 1L;
 
@@ -261,7 +243,7 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
 
         final int numProcesses = simulatorVisualization.getNumProcesses();
         for (int i = 0; i < numProcesses; ++i)
-            vectorTime.add(new Long(0));
+            vectorTime.add(Long.valueOf(0));
     }
 
     /**
@@ -277,7 +259,7 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
 
         final int numProcesses = simulatorVisualization.getNumProcesses();
         for (int i = numProcesses; i > 0; --i)
-            vectorTime.add(new Long(0));
+            vectorTime.add(Long.valueOf(0));
     }
 
     /**
@@ -368,7 +350,7 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
      */
     public synchronized void isCrashed(boolean isCrashed) {
         this.isCrashed = isCrashed;
-        crashHistory.add(new Long(globalTime));
+        crashHistory.add(Long.valueOf(globalTime));
         if (!hasCrashed)
             hasCrashed = true;
     }
@@ -514,7 +496,7 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
      */
     public synchronized void increaseVectorTime() {
         vectorTime.set(processNum,
-                       new Long(vectorTime.get(processNum).longValue()+1));
+                       Long.valueOf(vectorTime.get(processNum).longValue()+1));
         vectorTime.setGlobalTime(globalTime);
         vectorTimeHistory.add(vectorTime.getCopy());
     }
@@ -530,7 +512,7 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
 
         for (int i = 0; i < size; ++i) {
             if (i == processNum)
-                vectorTime.set(i, new Long(vectorTime.get(i).longValue()+1));
+                vectorTime.set(i, Long.valueOf(vectorTime.get(i).longValue()+1));
             else if (vectorTimeUpdate.get(i) > vectorTime.get(i))
                 vectorTime.set(i, vectorTimeUpdate.get(i));
         }
@@ -673,24 +655,23 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
                                + "; id: " + processID + ")");
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
-        objectOutputStream.writeObject(new Integer(processID));
-        objectOutputStream.writeObject(new Integer(protocolsToReset.size()));
+        objectOutputStream.writeObject(Integer.valueOf(processID));
+        objectOutputStream.writeObject(Integer.valueOf(protocolsToReset.size()));
         for (VSAbstractProtocol protocol : protocolsToReset) {
             objectOutputStream.writeObject(protocol.getClassname());
             protocol.serialize(serialize, objectOutputStream);
         }
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {
@@ -698,7 +679,6 @@ public abstract class VSAbstractProcess extends VSSerializablePrefs
 
         /* Bugfix, being compatible with old versions */
         super.deleteLong("process.localTime");
-
 
         updateFromPrefs_();
 

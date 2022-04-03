@@ -1,33 +1,14 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package events;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Vector;
 
-import prefs.*;
-import core.*;
-import utils.*;
+import core.VSInternalProcess;
+import prefs.VSPrefs;
+import utils.VSClassLoader;
 
 /**
  * The class VSRegisteredEvents. This class is responsible to manage all
@@ -38,9 +19,6 @@ import utils.*;
  * @author Paul C. Buetow
  */
 public final class VSRegisteredEvents {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /** The event classnames by eventnames. */
     private static HashMap<String,String> eventClassnamesByNames =
         new HashMap<String,String>();
@@ -80,37 +58,6 @@ public final class VSRegisteredEvents {
      */
     public static void init(VSPrefs prefs_) {
         prefs = prefs_;
-
-        /*
-                registerEvent("events.implementations.VSProcessCrashEvent",
-                              "Prozessabsturz");
-                registerEvent("events.implementations.VSProcessRecoverEvent",
-                              "Prozesswiederbelebung");
-                registerEvent("protocols.implementations.VSBasicMulticastProtocol",
-                              "Basic Multicast", "Basic Multicast");
-                registerEvent("protocols.implementations.VSBerkelyTimeProtocol",
-                              "Berkeley Algorithmus zur internen Sync.", "Berkeley");
-                registerEvent("protocols.implementations.VSBroadcastProtocol",
-                              "Broadcast");
-                registerEvent("protocols.implementations.VSDummyProtocol",
-                              "Beispiel/Dummy");
-                registerEvent("protocols.implementations.VSExternalTimeSyncProtocol",
-                              "Christians Methode zur externen Sync.", "Christians");
-                registerEvent("protocols.implementations.VSInternalTimeSyncProtocol",
-                              "Interne Synchronisation", "Interne Sync.");
-                registerEvent("protocols.implementations.VSOnePhaseCommitProtocol",
-                              "Ein-Phasen Commit", "1-Phasen Commit");
-                registerEvent("protocols.implementations.VSPingPongProtocol",
-                              "Ping Pong");
-                registerEvent("protocols.implementations.VSReliableMulticastProtocol",
-                              "Reliable Multicast", "Reliable Multicast");
-                registerEvent("protocols.implementations.VSTwoPhaseCommitProtocol",
-                              "Zwei-Phasen Commit", "2-Phasen Commit");
-        */
-
-        /* Using the NEW way. The old way above (specifying protocol names
-           in this file still works as well */
-
         registerEvent("events.implementations.VSProcessCrashEvent");
         registerEvent("events.implementations.VSProcessRecoverEvent");
         registerEvent("protocols.implementations.VSBasicMulticastProtocol");
@@ -161,7 +108,7 @@ public final class VSRegisteredEvents {
 
                 if (serverProtocol.hasOnServerStart())
                     isOnServerStartProtocol.put(protocolClassname,
-                                                new Boolean(true));
+                                                Boolean.valueOf(true));
             }
         }
     }
@@ -377,16 +324,6 @@ public final class VSRegisteredEvents {
         String eventShortname =
             prefs.getString("lang.en." + eventClassname + ".short");
         registerEvent(eventClassname, eventName, eventShortname);
-    }
-
-    /**
-     * Registers an event.
-     *
-     * @param eventClassname the event classname
-     * @param eventName the event name
-     */
-    private static void registerEvent(String eventClassname, String eventName) {
-        registerEvent(eventClassname, eventName, null);
     }
 
     /**

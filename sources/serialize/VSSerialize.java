@@ -1,34 +1,20 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package serialize;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import javax.swing.*;
 
-import prefs.*;
-import simulator.*;
+import javax.swing.JFileChooser;
+
+import prefs.VSDefaultPrefs;
+import prefs.VSPrefs;
+import prefs.VSSerializablePrefs;
+import simulator.VSSimulator;
+import simulator.VSSimulatorFrame;
 
 /**
  * The class VSSerialize, this class helps do serialize/deserialize a saved
@@ -37,9 +23,6 @@ import simulator.*;
  * @author Paul C. Buetow
  */
 public final class VSSerialize {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /** True if debug mode of serialization/deserialization */
     public static final boolean DEBUG = true;
 
@@ -63,7 +46,7 @@ public final class VSSerialize {
      * Initializes the helper.
      */
     private void init() {
-        this.serialize = this;
+        serialize = this;
         objects = new HashMap<String,Object>();
     }
 

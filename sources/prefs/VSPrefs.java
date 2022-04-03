@@ -1,33 +1,16 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package prefs;
 
 import java.awt.Color;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Vector;
 
-import serialize.*;
+import serialize.VSSerialize;
 
 /**
  * The class VSPrefs, this class is for dynamic data storage. It can hold
@@ -36,9 +19,6 @@ import serialize.*;
  * @author Paul C. Buetow
  */
 public class VSPrefs {
-    /** Check if we want to overwrite description strings */
-    //private boolean useDefaultStrings = false;
-
     /** The Constant BOOLEAN_PREFIX. */
     public static final String BOOLEAN_PREFIX = "Boolean: ";
 
@@ -92,9 +72,6 @@ public class VSPrefs {
 
     /** The units. */
     private HashMap<String,String> units;
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 4L;
 
     /** The id counter. */
     private static int idCounter;
@@ -293,7 +270,7 @@ public class VSPrefs {
         Boolean val = booleanPrefs.get(key);
 
         if (val == null)
-            return new Boolean(false);
+            return Boolean.valueOf(false);
 
         return val;
     }
@@ -316,7 +293,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void initBoolean(String key, boolean val) {
-        initBoolean(key, new Boolean(val));
+        initBoolean(key, Boolean.valueOf(val));
     }
 
     /**
@@ -348,7 +325,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void setBoolean(String key, boolean val) {
-        setBoolean(key, new Boolean(val));
+        setBoolean(key, Boolean.valueOf(val));
     }
 
     /* Color methods */
@@ -473,7 +450,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void initFloat(String key, float val) {
-        initFloat(key, new Float(val));
+        initFloat(key, Float.valueOf(val));
     }
 
     /**
@@ -518,7 +495,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void setFloat(String key, float val) {
-        setFloat(key, new Float(val));
+        setFloat(key, Float.valueOf(val));
     }
 
     /* Integer methods */
@@ -570,7 +547,7 @@ public class VSPrefs {
      */
     public void initInteger(String key, int val) {
         if (!integerPrefs.containsKey(key))
-            setInteger(key, new Integer(val));
+            setInteger(key, Integer.valueOf(val));
     }
 
     /**
@@ -663,7 +640,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void setInteger(String key, int val) {
-        setInteger(key, new Integer(val));
+        setInteger(key, Integer.valueOf(val));
     }
 
     /* Integer vector methods */
@@ -801,7 +778,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void initLong(String key, long val) {
-        initLong(key, new Long(val));
+        initLong(key, Long.valueOf(val));
     }
 
     /**
@@ -855,7 +832,7 @@ public class VSPrefs {
      * @param val the val
      */
     public void setLong(String key, long val) {
-        setLong(key, new Long(val));
+        setLong(key, Long.valueOf(val));
     }
 
     /* String methods */
@@ -929,7 +906,7 @@ public class VSPrefs {
         VSSerialize serialize, ObjectOutputStream objectOutputStream)
     throws IOException {
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
         objectOutputStream.writeObject(booleanPrefs);
         objectOutputStream.writeObject(colorPrefs);
@@ -943,7 +920,7 @@ public class VSPrefs {
         objectOutputStream.writeObject(restrictions);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
@@ -1198,13 +1175,4 @@ public class VSPrefs {
 
         return allKeys;
     }
-
-    /**
-     * Not overwrite description string defaults
-     */
-    /*
-        public void useDefaultStrings(boolean value) {
-    	useDefaultStrings = value;
-        }
-    */
 }

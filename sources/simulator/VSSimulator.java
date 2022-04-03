@@ -1,43 +1,58 @@
-/*
- * VS-Simulator (http://buetow.org)
- * Copyright (c) 2008 - 2009 by Dipl.-Inform. (FH) Paul C. Buetow
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package simulator;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Vector;
 
-import core.*;
-import events.*;
-import exceptions.*;
-import prefs.*;
-import prefs.editors.*;
-import serialize.*;
+import javax.swing.AbstractButton;
+import javax.swing.AbstractCellEditor;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+
+import core.VSInternalProcess;
+import core.VSTask;
+import core.VSTaskManager;
+import events.VSRegisteredEvents;
+import exceptions.VSNegativeNumberException;
+import prefs.VSPrefs;
+import prefs.editors.VSProcessEditor;
+import serialize.VSSerializable;
+import serialize.VSSerialize;
 
 /**
  * The class VSSimulator, an object of this class represents a whole simulator.
@@ -69,13 +84,13 @@ public class VSSimulator extends JPanel implements VSSerializable {
     private JCheckBox vectorTimeActiveCheckBox;
 
     /** The global pid combo box. */
-    private JComboBox globalPIDComboBox;
+    private JComboBox<String> globalPIDComboBox;
 
     /** The local pid combo box. */
-    private JComboBox localPIDComboBox;
+    private JComboBox<String> localPIDComboBox;
 
     /** The processes combo box. */
-    private JComboBox processesComboBox;
+    private JComboBox<String> processesComboBox;
 
     /** The local add panel. */
     private JPanel localAddPanel;
@@ -153,13 +168,12 @@ public class VSSimulator extends JPanel implements VSSerializable {
     private static int simulatorCounter;
 
     /** The simulator num. */
-    private static int simulatorNum;
+    private static volatile int simulatorNum;
 
     /**
      * The class VSTaskManagerTableModel, an object of this class handles
      * the task manager's JTable.
      */
-    @SuppressWarnings("unchecked")
     private class VSTaskManagerTableModel extends AbstractTableModel
                 implements MouseListener {
         /** the serial version uid */
@@ -172,13 +186,10 @@ public class VSSimulator extends JPanel implements VSSerializable {
         public static final boolean GLOBAL = false;
 
         /** The Constant ALL_PROCESSES. */
-        public static final boolean ALL_PROCESSES = true;
+        // public static final boolean ALL_PROCESSES = true;
 
         /** The Constant ONE_PROCESS. */
         public static final boolean ONE_PROCESS = false;
-
-        /** The all processes. */
-        public boolean allProcesses;
 
         /** The tasks. */
         private ArrayList<VSTask> tasks;
@@ -244,7 +255,6 @@ public class VSSimulator extends JPanel implements VSSerializable {
          */
         public void set(VSInternalProcess process, boolean localTasks,
                         boolean allProcesses) {
-            this.allProcesses = allProcesses;
 
             if (allProcesses) {
                 this.tasks = localTasks
@@ -353,16 +363,6 @@ public class VSSimulator extends JPanel implements VSSerializable {
                 return false;
 
             return true;
-        }
-
-        /**
-         * Gets the task at a specified row.
-         *
-         * @param row the row
-         * @return The task
-         */
-        public VSTask getTaskAtRow(int row) {
-            return tasks.get(row);
         }
 
         /**
@@ -538,7 +538,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
                 return valField;
             case 1:
                 Integer current[] = { (Integer) model.getValueAt(row, col) };
-                final JComboBox comboBox = new JComboBox(current);
+                final JComboBox<Integer> comboBox = new JComboBox<>(current);
 
                 Integer pids[] = simulatorVisualization.getProcessIDs();
                 for (Integer pid : pids)
@@ -598,7 +598,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
     private void init(VSPrefs prefs, VSSimulatorFrame simulatorFrame) {
         this.prefs = prefs;
         this.simulatorFrame = simulatorFrame;
-        this.simulatorNum = ++simulatorCounter;
+        simulatorNum = ++simulatorCounter;
         this.menuItemStates = new VSMenuItemStates(false, false, false, true);
         this.localTextFields = new ArrayList<String>();
         this.globalTextFields = new ArrayList<String>();
@@ -825,9 +825,9 @@ public class VSSimulator extends JPanel implements VSSerializable {
         boolean expertMode = prefs.getBoolean("sim.mode.expert");
         editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.Y_AXIS));
 
-        processesComboBox = new JComboBox();
-        localPIDComboBox = new JComboBox();
-        globalPIDComboBox = new JComboBox();
+        processesComboBox = new JComboBox<>();
+        localPIDComboBox = new JComboBox<>();
+        globalPIDComboBox = new JComboBox<>();
 
         lastSelectedProcessNum = 0;
         int numProcesses = simulatorVisualization.getNumProcesses();
@@ -1026,7 +1026,7 @@ public class VSSimulator extends JPanel implements VSSerializable {
             addPanel.add(globalPIDComboBox);
         }
 
-        final JComboBox comboBox = new JComboBox();
+        final JComboBox<String> comboBox = new JComboBox<>();
         JButton takeoverButton = new JButton(prefs.getString("lang.en.takeover"));
         takeoverButton.setMnemonic(prefs.getInteger("keyevent.takeover"));
         takeoverButton.addActionListener(new ActionListener() {
@@ -1498,12 +1498,12 @@ public class VSSimulator extends JPanel implements VSSerializable {
                                        ObjectOutputStream objectOutputStream)
     throws IOException {
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
         simulatorVisualization.serialize(serialize, objectOutputStream);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
     }
 
@@ -1511,7 +1511,6 @@ public class VSSimulator extends JPanel implements VSSerializable {
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {

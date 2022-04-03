@@ -1,26 +1,3 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package prefs;
 
 import java.awt.Color;
@@ -33,9 +10,6 @@ import java.awt.event.KeyEvent;
  * @author Paul C. Buetow
  */
 public class VSDefaultPrefsDE extends VSSerializablePrefs {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /**
      * Inits a prefs object with default values.
      *
@@ -72,7 +46,7 @@ public class VSDefaultPrefsDE extends VSSerializablePrefs {
      */
     public void fillDefaultStrings() {
         initString("lang.de.about", "About");
-        initString("lang.de.about.info", "Dieses Programm wurde von Paul Bütow im Rahmen der Diplomarbeit \"Objektorientierte Entwicklung eines GUI-basierten Tools für die ereignisbasierte Simulator verteilter Systeme\" bei Prof. Dr.-Ing. Oßmann als 1. Prüfer sowie Betreuer und Prof. Dr. rer. nat. Fassbender als 2. Prüfer erstellt. Bei Fehlern bitte eine kurze Mail mit Fehlerbeschreibung an vs@paul.buetow.org schicken!");
+        initString("lang.de.about.info", "Dieses Programm wurde von Paul Bütow im Rahmen der Diplomarbeit \"Objektorientierte Entwicklung eines GUI-basierten Tools für die ereignisbasierte Simulator verteilter Systeme\" bei Prof. Dr.-Ing. Oßmann als 1. Prüfer sowie Betreuer und Prof. Dr. rer. nat. Fassbender als 2. Prüfer erstellt. Bei Fehlern bitte eine kurze Mail mit Fehlerbeschreibung an paul at buetow punkt org schicken!");
         initString("lang.de.activate", "aktivieren");
         initString("lang.de.activated", "aktiviert");
         initString("lang.de.actualize", "Aktualisieren");

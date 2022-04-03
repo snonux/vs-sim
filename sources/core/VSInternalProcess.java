@@ -1,37 +1,16 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package core;
 
-import java.awt.*;
+import java.awt.Color;
 
-import core.time.*;
-import events.*;
-import events.implementations.*;
-import prefs.*;
-import protocols.*;
-import simulator.*;
-import utils.*;
+import core.time.VSVectorTime;
+import events.VSAbstractEvent;
+import events.VSRegisteredEvents;
+import events.implementations.VSProcessCrashEvent;
+import prefs.VSPrefs;
+import protocols.VSAbstractProtocol;
+import simulator.VSLogging;
+import simulator.VSSimulatorVisualization;
+import utils.VSPriorityQueue;
 
 /**
  * The class VSInternalProcess, an object of this class represents a process
@@ -372,9 +351,9 @@ public class VSInternalProcess extends VSAbstractProcess {
      * simulator.
      */
     public synchronized void addedAProcess() {
-        vectorTime.add(new Long(0));
+        vectorTime.add(Long.valueOf(0));
         for (VSVectorTime vectorTime : vectorTimeHistory)
-            vectorTime.add(new Long(0));
+            vectorTime.add(Long.valueOf(0));
     }
 
     /**

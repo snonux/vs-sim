@@ -1,36 +1,17 @@
-/*
- * VS-Simulator (http://buetow.org)
- * Copyright (c) 2008 - 2009 by Dipl.-Inform. (FH) Paul C. Buetow
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package protocols;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import core.*;
-import events.*;
-import events.internal.*;
-import serialize.*;
+import core.VSInternalProcess;
+import core.VSMessage;
+import core.VSMessageStub;
+import core.VSTask;
+import events.VSAbstractEvent;
+import events.internal.VSProtocolScheduleEvent;
+import serialize.VSSerialize;
 import simulator.VSSimulatorVisualization;
 
 /**
@@ -40,9 +21,6 @@ import simulator.VSSimulatorVisualization;
  * @author Paul C. Buetow
  */
 abstract public class VSAbstractProtocol extends VSAbstractEvent {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /** The protocol has an onServerStart method */
     protected static final boolean HAS_ON_SERVER_START = true;
 
@@ -442,19 +420,18 @@ abstract public class VSAbstractProtocol extends VSAbstractEvent {
         super.serialize(serialize, objectOutputStream);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
-        objectOutputStream.writeObject(new Boolean(hasOnServerStart));
+        objectOutputStream.writeObject(Boolean.valueOf(hasOnServerStart));
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {
@@ -466,9 +443,7 @@ abstract public class VSAbstractProtocol extends VSAbstractEvent {
         /** For later backwards compatibility, to add more stuff */
         objectInputStream.readObject();
 
-        this.hasOnServerStart = ((Boolean)
-                                 objectInputStream.readObject()).booleanValue();
-
+        this.hasOnServerStart = ((Boolean) objectInputStream.readObject()).booleanValue();
         /** For later backwards compatibility, to add more stuff */
         objectInputStream.readObject();
     }

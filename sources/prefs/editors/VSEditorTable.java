@@ -1,37 +1,22 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package prefs.editors;
 
-import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.util.ArrayList;
 
-import java.awt.*;
-//import java.io.*;
-import javax.swing.*;
-import javax.swing.table.*;
-import javax.swing.text.*;
+import javax.swing.AbstractCellEditor;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
 
-import prefs.*;
+import prefs.VSPrefs;
 
 /**
  * The class VSEditorTable, each VSAbstractEditor uses an object of this class
@@ -43,12 +28,6 @@ public class VSEditorTable extends JTable {
     /** The serial version uid */
     private static final long serialVersionUID = 1L;
 
-    /** The Constant MIN_ROWS. */
-    //private static final int MIN_ROWS = 20;
-
-    /** The prefs. */
-    //private VSPrefs prefs;
-
     /** The nodes. */
     private ArrayList<VSNode> nodes;
 
@@ -59,9 +38,6 @@ public class VSEditorTable extends JTable {
      * The class VSNode.
      */
     private class VSNode {
-        /** The serial version uid */
-        private static final long serialVersionUID = 1L;
-
         /** The key. */
         private String key;
 

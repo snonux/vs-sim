@@ -1,39 +1,23 @@
-/*
- * VS-Simulator (http://buetow.org)
- * Copyright (c) 2008 -2009 by Dipl.-Inform. (FH) Paul C. Buetow
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package core;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-import events.*;
-import events.implementations.*;
-import events.internal.*;
-import exceptions.*;
+import events.VSAbstractEvent;
+import events.VSRegisteredEvents;
+import events.implementations.VSProcessCrashEvent;
+import events.implementations.VSProcessRecoverEvent;
+import events.internal.VSAbstractInternalEvent;
+import events.internal.VSMessageReceiveEvent;
+import events.internal.VSProtocolEvent;
+import exceptions.VSEventNotCopyableException;
 import prefs.VSPrefs;
 import protocols.VSAbstractProtocol;
-import serialize.*;
 //import utils.*;
+import serialize.VSNotSerializable;
+import serialize.VSSerializable;
+import serialize.VSSerialize;
 
 /**
  * The class VSTask, an object of this class represents a task to do or done.
@@ -44,10 +28,7 @@ import serialize.*;
  *
  * @author Paul C. Buetow
  */
-public class VSTask implements Comparable, VSSerializable {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
+public class VSTask implements Comparable<Object>, VSSerializable {
     /** The Constant LOCAL. Used for the constructor if it's a local timed
      * task.
      */
@@ -450,9 +431,9 @@ public class VSTask implements Comparable, VSSerializable {
                                        ObjectOutputStream objectOutputStream)
     throws IOException {
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
-        objectOutputStream.writeObject(new Integer(process.getProcessNum()));
+        objectOutputStream.writeObject(Integer.valueOf(process.getProcessNum()));
 
         if (event.getClassname() == null)
             event.init(process);
@@ -461,22 +442,21 @@ public class VSTask implements Comparable, VSSerializable {
             System.out.println("Serializing: " + event.getClassname());
 
         objectOutputStream.writeObject(event.getClassname());
-        objectOutputStream.writeObject(new Integer(event.getID()));
+        objectOutputStream.writeObject(Integer.valueOf(event.getID()));
         event.serialize(serialize, objectOutputStream);
-        objectOutputStream.writeObject(new Integer(taskNum));
-        objectOutputStream.writeObject(new Long(taskTime));
-        objectOutputStream.writeObject(new Boolean(isGlobalTimed));
-        objectOutputStream.writeObject(new Boolean(isProgrammed));
+        objectOutputStream.writeObject(Integer.valueOf(taskNum));
+        objectOutputStream.writeObject(Long.valueOf(taskTime));
+        objectOutputStream.writeObject(Boolean.valueOf(isGlobalTimed));
+        objectOutputStream.writeObject(Boolean.valueOf(isProgrammed));
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {

@@ -1,33 +1,12 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package events.internal;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-//import events.*;
 import protocols.VSAbstractProtocol;
-import serialize.*;
+import serialize.VSNotSerializable;
+import serialize.VSSerialize;
 
 /**
  * The class VSProtocolScheduleEvent, this event is used if a protocol (which
@@ -38,9 +17,6 @@ import serialize.*;
  */
 public class VSProtocolScheduleEvent extends VSAbstractInternalEvent
             implements VSNotSerializable {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /** The event is a server protocol schedule. */
     private boolean isServerSchedule; /* true = server, false = client */
 
@@ -125,17 +101,16 @@ public class VSProtocolScheduleEvent extends VSAbstractInternalEvent
         super.serialize(serialize, objectOutputStream);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {

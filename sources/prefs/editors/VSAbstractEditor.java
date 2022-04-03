@@ -1,35 +1,33 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package prefs.editors;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Vector;
 
-import utils.*;
-import prefs.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+
+import prefs.VSPrefs;
+import prefs.VSPrefsRestriction;
+import utils.VS3Tupel;
+import utils.VSFrame;
 
 /**
  * The class VSAbstractEditor, an object of this class is used in order to
@@ -38,9 +36,6 @@ import prefs.*;
  * @author Paul C. Buetow
  */
 public abstract class VSAbstractEditor implements ActionListener {
-    /** The serial version uid */
-    private static final long serialVersionUID = 1L;
-
     /** The boolean keys. */
     private ArrayList<String> booleanKeys;
 
@@ -66,7 +61,7 @@ public abstract class VSAbstractEditor implements ActionListener {
     private HashMap<String,JCheckBox> booleanFields;
 
     /** The integer fields. */
-    private HashMap<String,JComboBox> integerFields;
+    private HashMap<String,JComboBox<Integer>> integerFields;
 
     /** The vector fields. */
     private HashMap<String,JTextField> vectorFields;
@@ -219,7 +214,7 @@ public abstract class VSAbstractEditor implements ActionListener {
 
         colorFields = new HashMap<String,JTextField>();
         floatFields = new HashMap<String,JTextField>();
-        integerFields = new HashMap<String,JComboBox>();
+        integerFields = new HashMap<String,JComboBox<Integer>>();
         vectorFields = new HashMap<String,JTextField>();
         longFields = new HashMap<String,JTextField>();
         booleanFields = new HashMap<String,JCheckBox>();
@@ -337,7 +332,7 @@ public abstract class VSAbstractEditor implements ActionListener {
      *
      * @return the tupel representing the component
      */
-    protected VS3Tupel<String,Component,JComboBox> createIntegerComponent(
+    protected VS3Tupel<String,Component,JComboBox<Integer>> createIntegerComponent(
         String fullKey, String key, VSPrefs prefsToEdit) {
         String descr = prefs.getDescription(fullKey);
         if (descr == null)
@@ -345,7 +340,7 @@ public abstract class VSAbstractEditor implements ActionListener {
         String label = descr == null ? fullKey : descr;
         Integer integer = prefsToEdit.getInteger(key);
         Integer initialSelection[] = { integer };
-        JComboBox valComboBox = new JComboBox(initialSelection);
+        JComboBox<Integer> valComboBox = new JComboBox<>(initialSelection);
         VSPrefsRestriction settingRestriction =
             prefsToEdit.getRestriction(fullKey);
 
@@ -364,10 +359,10 @@ public abstract class VSAbstractEditor implements ActionListener {
         }
 
         for (int i = minValue; i <= maxValue; ++i)
-            valComboBox.addItem(new Integer(i));
+            valComboBox.addItem(Integer.valueOf(i));
         valComboBox.setBorder(null);
 
-        return new VS3Tupel<String,Component,JComboBox>(label,
+        return new VS3Tupel<String,Component,JComboBox<Integer>>(label,
                 createUnitPanel(prefsToEdit, valComboBox, fullKey),
                 valComboBox);
     }
@@ -571,7 +566,7 @@ public abstract class VSAbstractEditor implements ActionListener {
 
         for (String key : integerKeys) {
             String fullKey = VSPrefs.INTEGER_PREFIX + key;
-            VS3Tupel<String,Component,JComboBox> tupel =
+            VS3Tupel<String,Component,JComboBox<Integer>> tupel =
                 createIntegerComponent(fullKey, key, prefsToEdit);
             labels.put(fullKey, tupel.getA());
             components.put(fullKey, tupel.getB());
@@ -779,7 +774,7 @@ public abstract class VSAbstractEditor implements ActionListener {
         for (String fullKey : fullKeys) {
             String key = fullKey.substring(fullKey.indexOf(": ") + 2);
             if (fullKey.startsWith(VSPrefs.INTEGER_PREFIX)) {
-                VS3Tupel<String,Component,JComboBox> tupel =
+                VS3Tupel<String,Component,JComboBox<Integer>> tupel =
                     createIntegerComponent(fullKey, key, prefsToAdd);
                 this.integerKeys.add(prefsKey+key);
                 this.integerFields.put(prefsKey+key, tupel.getC());
@@ -862,7 +857,7 @@ public abstract class VSAbstractEditor implements ActionListener {
      */
     protected void resetPrefs() {
         for (String key : integerKeys) {
-            JComboBox valComboBox = integerFields.get(key);
+            JComboBox<Integer> valComboBox = integerFields.get(key);
             valComboBox.setSelectedIndex(0);
         }
 
@@ -900,7 +895,7 @@ public abstract class VSAbstractEditor implements ActionListener {
 
         for (String key : stringKeys) {
             String keys[] = getKeys(key);
-            JTextField valField = stringFields.get(keys);
+            JTextField valField = stringFields.get(key);
             valField.setText(prefsToEditMap.get(keys[1]).getString(keys[0]));
         }
     }
@@ -931,7 +926,7 @@ public abstract class VSAbstractEditor implements ActionListener {
 
         for (String key : integerKeys) {
             String keys[] = getKeys(key);
-            JComboBox valComboBox = integerFields.get(key);
+            JComboBox<Integer> valComboBox = integerFields.get(key);
             prefsToEditMap.get(
                 keys[1]).setInteger(keys[0],
                                     (Integer) valComboBox.getSelectedItem());

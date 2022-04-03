@@ -1,44 +1,42 @@
-/*
- * Copyright (c) 2008 Paul C. Buetow, vs-sim@dev.buetow.org
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package simulator;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-import java.util.*;
-import javax.swing.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.HierarchyBoundsListener;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-import core.*;
-import core.time.*;
-import events.*;
-import events.implementations.*;
-import events.internal.*;
-import prefs.*;
-import prefs.editors.*;
-import serialize.*;
-//import utils.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
+
+import core.VSInternalProcess;
+import core.VSMessage;
+import core.VSTask;
+import core.VSTaskManager;
+import core.time.VSTime;
+import events.VSAbstractEvent;
+import events.implementations.VSProcessCrashEvent;
+import events.implementations.VSProcessRecoverEvent;
+import events.internal.VSMessageReceiveEvent;
+import prefs.VSPrefs;
+import prefs.editors.VSEditorFrame;
+import prefs.editors.VSProcessEditor;
+import serialize.VSSerializable;
+import serialize.VSSerialize;
 
 /**
  * The class VSSimulatorVisualization. An instance of this object represents the
@@ -1578,7 +1576,7 @@ public class VSSimulatorVisualization extends Canvas
         synchronized (processes) {
             pids = new Integer[numProcesses];
             for (int i = 0; i < numProcesses; ++i)
-                pids[i] = new Integer(processes.get(i).getProcessID());
+                pids[i] = Integer.valueOf(processes.get(i).getProcessID());
         }
 
         return pids;
@@ -1766,12 +1764,12 @@ public class VSSimulatorVisualization extends Canvas
                                        ObjectOutputStream objectOutputStream)
     throws IOException {
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
-        objectOutputStream.writeObject(new Integer(processCounter));
+        objectOutputStream.writeObject(Integer.valueOf(processCounter));
 
         synchronized (processes) {
-            objectOutputStream.writeObject(new Integer(numProcesses));
+            objectOutputStream.writeObject(Integer.valueOf(numProcesses));
             for (VSInternalProcess process : processes)
                 process.serialize(serialize, objectOutputStream);
         }
@@ -1779,7 +1777,7 @@ public class VSSimulatorVisualization extends Canvas
         taskManager.serialize(serialize, objectOutputStream);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)

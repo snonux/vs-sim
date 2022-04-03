@@ -1,36 +1,17 @@
-/*
- * VS-Simulator (http://buetow.org)
- * Copyright (c) 2008 -2009 by Dipl.-Inform. (FH) Paul C. Buetow
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- *
- * All icons of the icons/ folder are 	under a Creative Commons
- * Attribution-Noncommercial-Share Alike License a CC-by-nc-sa.
- *
- * The icon's homepage is http://code.google.com/p/ultimate-gnome/
- */
-
 package core;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
 
-import prefs.*;
-import serialize.*;
-import simulator.*;
-import utils.*;
+import prefs.VSPrefs;
+import serialize.VSSerializable;
+import serialize.VSSerialize;
+import simulator.VSSimulatorVisualization;
+import utils.VSPriorityQueue;
 
 /**
  * The class VSTaskManager, it is responsible that all tasks will get
@@ -40,9 +21,6 @@ import utils.*;
  * @author Paul C. Buetow
  */
 public class VSTaskManager implements VSSerializable {
-    /** The seriao version uid */
-    private static final long serialVersionUID = 1L;
-
     /** The simulator canvas. */
     private VSSimulatorVisualization simulatorVisualization;
 
@@ -510,7 +488,7 @@ public class VSTaskManager implements VSSerializable {
                                        ObjectOutputStream objectOutputStream)
     throws IOException {
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
 
         ArrayList<VSTask> serializeThoseTasks = new ArrayList<VSTask>();
 
@@ -538,19 +516,18 @@ public class VSTaskManager implements VSSerializable {
         }
 
         objectOutputStream.writeObject(
-            new Integer(serializeThoseTasks.size()));
+            Integer.valueOf(serializeThoseTasks.size()));
         for (VSTask task : serializeThoseTasks)
             task.serialize(serialize, objectOutputStream);
 
         /** For later backwards compatibility, to add more stuff */
-        objectOutputStream.writeObject(new Boolean(false));
+        objectOutputStream.writeObject(Boolean.valueOf(false));
     }
 
     /* (non-Javadoc)
      * @see serialize.VSSerializable#deserialize(serialize.VSSerialize,
      *	java.io.ObjectInputStream)
      */
-    @SuppressWarnings("unchecked")
     public synchronized void deserialize(VSSerialize serialize,
                                          ObjectInputStream objectInputStream)
     throws IOException, ClassNotFoundException {
